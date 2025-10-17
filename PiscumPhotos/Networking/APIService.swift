@@ -10,8 +10,6 @@ import Alamofire
 
 class APIService {
     static let piscumPhotosAPI = "https://picsum.photos/v2/list?page=1&limit=10"
-    
-    
     static let shared = APIService()
     
     func fetchPhotosList(completion: @escaping (Result<[PiscumPhotosModel]?, Error>) -> Void) {
@@ -25,8 +23,6 @@ class APIService {
             case .failure(let error):
                 print("error")
             }
-            
         }
-            
     }
 }

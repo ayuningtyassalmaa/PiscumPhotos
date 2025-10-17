@@ -36,14 +36,10 @@ class PiscumPhotoCell: UITableViewCell {
         stackView.spacing = 5
         stackView.alignment = .fill
         stackView.distribution = .fill
-        stackView.layer.borderColor = UIColor.red.cgColor
-        stackView.layer.borderWidth = 1
-        
+
         downloadPhotoBtn.setTitle("Download", for: .normal)
-        downloadPhotoBtn.setTitleColor(.cyan, for: .normal)
-        downloadPhotoBtn.backgroundColor = UIColor.black
-        downloadPhotoBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        
+        downloadPhotoBtn.setTitleColor(.blue, for: .normal)
+    
         let stackViewList: [UIView] = [autorPhotoLabel, downloadPhotoBtn]
         
         contentView.addSubview(stackView)
@@ -66,16 +62,15 @@ class PiscumPhotoCell: UITableViewCell {
                 imageViewFeed.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
                 
                 stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 2),
-                stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
+                stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
                 stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
                 
-                imageViewFeed.widthAnchor.constraint(equalToConstant: 170),
-                imageViewFeed.heightAnchor.constraint(equalToConstant: 170),
+                imageViewFeed.widthAnchor.constraint(equalToConstant: 150),
+                imageViewFeed.heightAnchor.constraint(equalToConstant: 120),
                 downloadPhotoBtn.widthAnchor.constraint(equalToConstant: 100),
                 downloadPhotoBtn.heightAnchor.constraint(equalToConstant: 50)
                 
             ])
-        
     }
     
     func configure(with authorname: String, with urlImage: String) {
