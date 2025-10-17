@@ -18,10 +18,10 @@ class APIService {
         
         let endpoint = APIService.piscumPhotosAPI
         
-        AF.request(endpoint).responseDecodable(of: PiscumPhotosModel.self) {response in
+        AF.request(endpoint).responseDecodable(of: [PiscumPhotosModel].self) {response in
             switch response.result {
             case .success(let model):
-                completion(.success([model]))
+                completion(.success(model))
             case .failure(let error):
                 print("error")
             }

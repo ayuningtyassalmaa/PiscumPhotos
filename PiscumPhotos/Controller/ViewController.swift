@@ -9,11 +9,15 @@ import UIKit
 
 class ViewController: UIViewController {
  
+    private var listPhotos: [PiscumPhotosModel] = []
+    private let apiService = APIService()
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
+        getDataPhotos()
     }
     
     
@@ -23,12 +27,35 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
     }
+    
+    // fetch API
+    func getDataPhotos() {
+        APIService.shared.fetchPhotosList { [weak self] result in
+            
+            guard let self = self else {return}
+            
+            
+            switch result {
+            case .success(let model):
+               
+                self.listPhotos = model ?? []
+                    
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
+            case .failure(let error):
+                print("gagal memuat")
+            }
+            
+        }
+    }
 
 
 }; extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return listPhotos.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -41,11 +68,16 @@ class ViewController: UIViewController {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let data = listPhotos[indexPath.item]
+        let urlImg = data.download_url
+        let authorName = data.author
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PiscumPhotoCell.identifier, for: indexPath) as? PiscumPhotoCell else {
             return UITableViewCell()
         }
         
         cell.setupUI()
+        cell.configure(with: authorName, with: urlImg)
         return cell
     }
     

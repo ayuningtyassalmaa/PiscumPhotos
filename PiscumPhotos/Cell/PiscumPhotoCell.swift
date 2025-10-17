@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
 class PiscumPhotoCell: UITableViewCell {
     static let identifier = "PiscumPhotoCell"
@@ -29,6 +30,8 @@ class PiscumPhotoCell: UITableViewCell {
     
     func setupUI() {
         
+        imageViewFeed.sd_cancelCurrentImageLoad()
+        
         stackView.axis = .vertical
         stackView.spacing = 5
         stackView.alignment = .fill
@@ -40,12 +43,6 @@ class PiscumPhotoCell: UITableViewCell {
         downloadPhotoBtn.setTitleColor(.cyan, for: .normal)
         downloadPhotoBtn.backgroundColor = UIColor.black
         downloadPhotoBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        
-        
-        autorPhotoLabel.text = "tesssss"
-        imageViewFeed.image = UIImage(systemName: "heart.fill")
-        
-        
         
         let stackViewList: [UIView] = [autorPhotoLabel, downloadPhotoBtn]
         
@@ -72,12 +69,22 @@ class PiscumPhotoCell: UITableViewCell {
                 stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
                 stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
                 
-                imageViewFeed.widthAnchor.constraint(equalToConstant: 70),
-                imageViewFeed.heightAnchor.constraint(equalToConstant: 70),
+                imageViewFeed.widthAnchor.constraint(equalToConstant: 170),
+                imageViewFeed.heightAnchor.constraint(equalToConstant: 170),
                 downloadPhotoBtn.widthAnchor.constraint(equalToConstant: 100),
                 downloadPhotoBtn.heightAnchor.constraint(equalToConstant: 50)
                 
             ])
         
+    }
+    
+    func configure(with authorname: String, with urlImage: String) {
+        autorPhotoLabel.text = authorname
+       
+        guard let urlIMG = URL(string: urlImage) else {
+            imageViewFeed.image = UIImage(systemName: "heart.fill")
+            return
+        }
+        imageViewFeed.sd_setImage(with: urlIMG, completed: nil)
     }
 }

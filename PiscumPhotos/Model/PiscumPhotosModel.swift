@@ -10,7 +10,7 @@ import Foundation
 struct PiscumPhotosModel: Codable {
     let id: String
     let author: String
-    let widht: Int
+    let width: Int
     let height: Int
     let url: String
     let download_url: String
